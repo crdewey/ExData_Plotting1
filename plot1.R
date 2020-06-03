@@ -1,5 +1,3 @@
-getwd()
-setwd("Exploratory Data Analysis")
 
 library("readr")
 
@@ -7,21 +5,13 @@ library("readr")
 
 power <- read_csv2("household_power_consumption.txt")
 
-# convert date and time variables
-
-power$Time2 <- strptime(power$Time, '%H:%M')
-
-power$Date2 <- as.Date(power$Date,"%d/%m/%Y")
-
-#convert Global_active_power to numeric
-
-str(as.numeric(power$Global_active_power))
 
 # select data from the dates 2007-02-01 and 2007-02-02
 
-febdata <- power[power$Date2<=as.Date("2007-02-02") & power$Date2>=as.Date("2007-02-01") ,]
+febdata <- power[as.Date(power$Date, "%d/%m/%Y")<=as.Date("02/02/2007", "%d/%m/%Y") & as.Date(power$Date, "%d/%m/%Y")>=as.Date("01/02/2007", "%d/%m/%Y") ,]
 
 #create histogram 
+#converting Global_active_power to numeric
 
 hist(as.numeric(febdata$Global_active_power),col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
 
